@@ -9,6 +9,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response\HtmlResponse;
 use Zend\Expressive\Template\TemplateRendererInterface;
 use Zend\Hydrator\ClassMethods;
+
 class ProductsListHandler implements MiddlewareInterface
 {
     private $template;
@@ -18,6 +19,8 @@ class ProductsListHandler implements MiddlewareInterface
         $this->template = $template;
         $this->entityManager = $entityManager;
     }
+
+
     public function process(ServerRequestInterface $request, DelegateInterface $delegate)
     {
         $form = new ProductCreateForm;
@@ -25,6 +28,7 @@ class ProductsListHandler implements MiddlewareInterface
         $form->bind(new Product);
         $repository = $this->entityManager->getRepository(Product::class);
         $products = $repository->findAll();
+
         return new HtmlResponse($this->template->render('app::products/list', ['form'=>$form, 'products'=>$products]));
     }
 }

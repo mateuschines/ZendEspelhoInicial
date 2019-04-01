@@ -1,5 +1,5 @@
 <?php
-namespace App\Action;
+namespace App\Handler;
 use Doctrine\ORM\EntityManager;
 use Interop\Container\ContainerInterface;
 use Zend\Expressive\Template\TemplateRendererInterface;
@@ -9,6 +9,6 @@ class ProductsListFactory
     {
         $template = $container->get(TemplateRendererInterface::class);
         $em = $container->get(EntityManager::class);
-        return new ProductsListAction($template, $em);
+        return new ProductsListHandler($template, $em);
     }
 }
